@@ -12,7 +12,10 @@ from skl2onnx import convert_sklearn
 from skl2onnx.common.data_types import FloatTensorType
 
 from src.data_loader.uci_loader import load_uci_air_quality, preprocess_uci_for_co_regression
-from src.visualization.uci_plots import plot_actual_vs_predicted
+from src.visualization.uci_plots import (
+    plot_actual_vs_predicted,
+    plot_error_histogram,
+)
 
 
 logger = logging.getLogger(__name__)
@@ -73,10 +76,23 @@ def run_uci_pipeline(
 
     # 8) Visualization (Actual vs Predicted)
     plot_out.parent.mkdir(parents=True, exist_ok=True)
+    # Visualization 1: Actual vs Predicted (with MAE and y=x line)
     plot_actual_vs_predicted(
         y_true=y_test.to_numpy(),
         y_pred=onnx_preds,
         out_path=plot_out,
+        mae=mae_onnx,
         title="UCI Air Quality: Actual vs Predicted (ONNXRuntime)",
     )
-    logger.info("Plot saved: %s", plot_out)
+
+    # Visualization 2: Prediction error histogram
+    error_plot_path = plot_out.parent / "uci_prediction_error_hist.png"
+    plot_error_histogram(
+        y_true=y_test.to_numpy(),
+        y_pred=onnx_preds,
+        out_path=error_plot_path,
+    )
+
+    logger.info("Visualization saved: %s", plot_out)
+    logger.info("Error histogram saved: %s", error_plot_path)
+
