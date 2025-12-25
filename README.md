@@ -197,6 +197,7 @@ This project is **actively designed for extension**.
 * Time-series modeling (LSTM / Temporal CNN)
 * Advanced error analysis and explainability
 * Support for additional cities and data sources
+I would be happy to receive your application if you have a suitable dataset or a new idea for developing and improving the project.
 
 ---
 
@@ -208,10 +209,4 @@ The primary focus of this project is **architecture, modeling, and reproducibili
 
 ---
 
-## Author
-
-Developed by **Faeze Ahmadi**
-Master’s student – Artificial Intelligence & Robotics
-
-```
 
